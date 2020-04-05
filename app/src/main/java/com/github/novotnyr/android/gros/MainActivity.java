@@ -1,6 +1,7 @@
 package com.github.novotnyr.android.gros;
 
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
             String[] permissions = {SEND_SMS};
             ActivityCompat.requestPermissions(this, permissions, REQUEST_SMS);
         } else {
-            // odošli SMS
+            sendSms();
         }
     }
 
@@ -36,9 +37,17 @@ public class MainActivity extends AppCompatActivity {
                     // Neboli udelené žiadne oprávnenia, alebo dialóg pre potvrdenie bol zrušený
                     return;
                 }
-                // odošli SMS
+                sendSms();
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    public void sendSms() {
+        String phoneNumber = "5556";
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(phoneNumber,
+                null, "KE-123AB A4", null, null);
+
     }
 }
