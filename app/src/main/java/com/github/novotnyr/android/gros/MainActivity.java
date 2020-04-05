@@ -3,6 +3,9 @@ package com.github.novotnyr.android.gros;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.View;
+import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void onPayButtonClick(View view) {
         if (ActivityCompat.checkSelfPermission(this, SEND_SMS) != PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, SEND_SMS)) {
+                Snackbar.make(view, "Platba sa vykonáva odosielaním SMS práv. Udeľte appke právo odosielať SMSky", Snackbar.LENGTH_LONG).show();
+            }
             String[] permissions = {SEND_SMS};
             ActivityCompat.requestPermissions(this, permissions, REQUEST_SMS);
         } else {
