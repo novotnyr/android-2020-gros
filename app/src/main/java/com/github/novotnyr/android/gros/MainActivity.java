@@ -3,7 +3,7 @@ package com.github.novotnyr.android.gros;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.*;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -15,6 +15,8 @@ import static android.Manifest.permission.SEND_SMS;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class MainActivity extends AppCompatActivity {
+    private Button payButton;
+
     private static final int REQUEST_SMS = 1;
 
     private AppPreferences appPreferences;
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        payButton = findViewById(R.id.payButton);
+
         appPreferences = new AppPreferences(this);
     }
 
