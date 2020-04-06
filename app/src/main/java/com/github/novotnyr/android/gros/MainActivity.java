@@ -1,11 +1,14 @@
 package com.github.novotnyr.android.gros;
 
-import android.os.Bundle;
+import android.os.*;
 import android.telephony.SmsManager;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.*;
 
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.Date;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,5 +65,15 @@ public class MainActivity extends AppCompatActivity {
         smsManager.sendTextMessage(phoneNumber,
                 null, "KE-123AB A4", null, null);
         appPreferences.store();
+        refreshButton();
+    }
+
+    private void refreshButton() {
+        Date date = appPreferences.get(); //<1>
+        if (date == null) {
+            return;
+        }
+        CharSequence period = DateUtils.getRelativeTimeSpanString(date.getTime(), new Date().getTime(), DateUtils.SECOND_IN_MILLIS); //<2>
+        this.payButton.setText(period); //<3>
     }
 }
