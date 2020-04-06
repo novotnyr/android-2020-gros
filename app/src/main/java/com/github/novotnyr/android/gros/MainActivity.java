@@ -24,6 +24,16 @@ public class MainActivity extends AppCompatActivity {
 
     private AppPreferences appPreferences;
 
+    private Handler periodicRefreshHandler = new Handler();
+
+    private Runnable periodicRefreshTask = new Runnable() {
+        @Override
+        public void run() {
+            refreshButton();
+            periodicRefreshHandler.postDelayed(periodicRefreshTask, 1000);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
