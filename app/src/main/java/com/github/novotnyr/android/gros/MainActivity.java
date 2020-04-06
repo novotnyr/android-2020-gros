@@ -43,6 +43,18 @@ public class MainActivity extends AppCompatActivity {
         appPreferences = new AppPreferences(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.periodicRefreshHandler.postDelayed(periodicRefreshTask, 1000);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        this.periodicRefreshHandler.removeCallbacks(periodicRefreshTask);
+    }
+
     public void onPayButtonClick(View view) {
         if (ActivityCompat.checkSelfPermission(this, SEND_SMS) != PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, SEND_SMS)) {
