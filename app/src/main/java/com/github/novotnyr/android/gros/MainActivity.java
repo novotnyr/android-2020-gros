@@ -17,10 +17,13 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_SMS = 1;
 
+    private AppPreferences appPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        appPreferences = new AppPreferences(this);
     }
 
     public void onPayButtonClick(View view) {
@@ -54,6 +57,6 @@ public class MainActivity extends AppCompatActivity {
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(phoneNumber,
                 null, "KE-123AB A4", null, null);
-
+        appPreferences.store();
     }
 }
