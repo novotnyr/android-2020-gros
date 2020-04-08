@@ -1,11 +1,11 @@
 package com.github.novotnyr.android.gros;
 
-import android.content.Intent;
+import android.content.*;
 import android.os.*;
 import android.telephony.SmsManager;
 import android.text.format.DateUtils;
 import android.view.*;
-import android.widget.*;
+import android.widget.Button;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -14,6 +14,7 @@ import java.util.Date;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.preference.PreferenceManager;
 
 import static android.Manifest.permission.SEND_SMS;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case REQUEST_SMS:
-                if (grantResults.length == 0 || grantResults[0] != PERMISSION_GRANTED ) {
+                if (grantResults.length == 0 || grantResults[0] != PERMISSION_GRANTED) {
                     // Neboli udelené žiadne oprávnenia, alebo dialóg pre potvrdenie bol zrušený
                     return;
                 }
@@ -83,10 +84,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendSms() {
-        String phoneNumber = "5556";
+        SharedPreferences appSettings = PreferenceManager.getDefaultSharedPreferences(this);
+        String phoneNumber = appSettings.getString("phone", "5556");
+        String text = appSettings.getString("message", "KE-123AB A4");
+
         SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(phoneNumber,
-                null, "KE-123AB A4", null, null);
+        smsManager.sendTextMessage(phoneNumber, null, text, null, null);
         appPreferences.store();
         refreshButton();
     }
