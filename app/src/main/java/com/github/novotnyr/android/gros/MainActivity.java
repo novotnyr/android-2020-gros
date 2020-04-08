@@ -1,9 +1,10 @@
 package com.github.novotnyr.android.gros;
 
+import android.content.Intent;
 import android.os.*;
 import android.telephony.SmsManager;
 import android.text.format.DateUtils;
-import android.view.View;
+import android.view.*;
 import android.widget.*;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -97,5 +98,20 @@ public class MainActivity extends AppCompatActivity {
         }
         CharSequence period = DateUtils.getRelativeTimeSpanString(date.getTime(), new Date().getTime(), DateUtils.SECOND_IN_MILLIS); //<2>
         this.payButton.setText(period); //<3>
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.settingsMenuItem) {
+            startActivity(new Intent(this, SettingsActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
